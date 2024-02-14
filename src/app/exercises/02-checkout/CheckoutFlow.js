@@ -2,12 +2,17 @@
 import React from 'react';
 
 import CartTable from './CartTable';
+import Spinner from '../../../components/Spinner';
 
-function CheckoutFlow({
-  items,
-  taxRate,
-  handleDeleteItem,
-}) {
+function CheckoutFlow({ items, taxRate, handleDeleteItem }) {
+  if (items === null) {
+    return (
+      <div className="checkout-flow empty">
+        <Spinner />
+      </div>
+    );
+  }
+
   if (items.length === 0) {
     return (
       <div className="checkout-flow empty">
@@ -27,10 +32,7 @@ function CheckoutFlow({
 
   return (
     <div className="checkout-flow">
-      <CartTable
-        items={items}
-        handleDeleteItem={handleDeleteItem}
-      />
+      <CartTable items={items} handleDeleteItem={handleDeleteItem} />
 
       <table className="checkout-totals">
         <tbody>
